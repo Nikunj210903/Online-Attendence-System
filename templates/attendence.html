@@ -1,0 +1,124 @@
+<html>
+<head>
+	<title>attendence Form</title>
+<!--<style>
+	
+body{
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	background: #34495e;
+
+}
+.box{
+	width: 300px;
+	padding: 40px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	background: #191919;
+	/*border: 2px solid white;*/
+	text-align: center;
+	border-radius: 24px;
+	transition: 0.25s;
+
+}
+.box h1{
+	color: white;
+	text-transform: uppercase;
+	font-weight: 500;
+	/*box-shadow: 4px 10px 8px red;*/
+		
+}
+.box input[type = "text"],.box input[type = "password"]{
+	border: 0;
+	background: none;
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	border: 2px solid #3498db;
+	padding: 14px 10px;
+	width: 200px;
+	outline: none;
+	color: white;
+	border-radius: 24px;
+	transition: 0.25s;
+	/*text-transform: capitalize;*/
+}
+.box input[type = "text"]:focus,.box input[type = "password"]:focus{
+	width: 280px;
+	border-color: #2ecc71;
+
+}
+.box input[type = "submit"]{
+	background: none;
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	border: 2px solid #2ecc71;
+	padding: 14px 40px;
+	/*width:  200px;*/
+	color: white;
+	border-radius: 24px;
+	transition: 0.25s;
+	cursor: pointer;
+}
+.box input[type = "submit"]:hover{
+	background: #2ecc71;
+}
+</style>-->
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+var fun= function(){
+navigator.mediaDevices.getUserMedia({ audio: true })
+  .then(stream => {
+    const mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder.start();
+	
+    const audioChunks = [];
+    mediaRecorder.addEventListener("dataavailable", event => {
+      audioChunks.push(event.data);
+    });
+
+    mediaRecorder.addEventListener("stop", () => {
+      const audioBlob = new Blob(audioChunks);
+	  const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+	  console.log(typeof(audio))
+	  
+	  return audio
+
+	  //var xhr = new XMLHttpRequest();
+	  //var url = "http://localhost:5000/attendence?branch=CP&year=year-3&sem=Sem-6&subject=C";
+      //xhr.open("GET", url, true);   
+	  
+	//  xhr.send(audio);
+	 // xhr.onload = () => {console.log(xhr.responseText)
+	 //document.getElementById('msg').innerHTML = xhr.responseText;
+
+		//}
+    });
+
+    setTimeout(() => {
+      mediaRecorder.stop();  
+    }, 2000);
+  });
+  } 
+</script>
+<div id="msg">
+<h1>Audio Recording Test</h1>
+    <p>Talk for 3 seconds, then you will hear your recording played back</p>
+    <button id="action" onclick="fun()">Start recording...</button>
+	<!--<form class="box" action="http://localhost:5000/attendence" method="get">		
+		<input type="text" name="branch" placeholder="Enter branch" required/>
+		<input type="text" name="year" placeholder="Enter Year" required/>
+		<input type="text" name="sem" placeholder="Enter semester" required/>
+		<input type="text" name="subject" placeholder="Enter subject" required/>
+		<input type="submit" name="submit" value="Record and send">
+	</form>-->
+</div>
+</body>
+</html>

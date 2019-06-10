@@ -1,0 +1,35 @@
+#:kivy 1.0
+<gridlayout>:
+	id: stu
+	rows: 2
+	padding: 10
+	spacing: 10
+
+	
+		
+	BoxLayout:
+		size_hint_y:None
+		height:50
+		id:box
+		TextInput:
+			id:entry
+			font_size: 32
+			text:"Press any button"
+	BoxLayout:
+		size_hint_y:None
+		height:50
+		spacing: 8
+		Button:
+			id:b1
+			font_size:32
+			text:"send_attendence"
+			on_press:stu.change()
+			on_release:stu.send_credential()
+		Button:
+			id:b2
+			font_size:32
+			text:"Change_credential"
+			on_press:stu.set_credential()	
+
+
+		

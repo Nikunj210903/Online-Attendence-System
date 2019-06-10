@@ -1,0 +1,92 @@
+<html>
+<head>
+<title>store attendence</title>
+</head>
+<body>
+
+<style>
+	
+	body{
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	background: #34495e;
+
+}
+
+div{
+margin:200px 200px 200px 400px;
+padding:30px 100px 50px 100px;
+text-align:center;
+width:600;
+background: #191919;
+color: white;
+border: 2px solid #3498db;
+border-radius: 24px;
+}
+
+
+#id_no{
+margin:50px 50px 50px 150px;
+padding:10px 100px 10px 100px;
+text-align:center;
+width:100;
+background: #191919;
+color: white;
+border: 2px solid #3498db;
+border-radius: 24px;
+}
+
+
+
+button{
+background: none;
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	border: 2px solid #2ecc71;
+	padding: 14px 40px;
+	/*width:  200px;*/
+	color: white;
+	border-radius: 24px;
+	transition: 0.25s;
+	cursor: pointer;
+
+
+}
+ul{
+list-style:none
+}
+</style>
+
+<div class="msg">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+<script>
+	var socket=io.connect('http://'+document.domain + ':'+location.port);
+	socket.on('update',function(msg){
+
+	var data=JSON.parse(msg)
+	var to1=data["to"]
+	var id_no=data["id_no"]
+	if(to1["branch"]=='{{values["branch"]}}' && to1["year"]=='{{values["year"]}}' && to1["sem"]=='{{values["sem"]}}' && to1["subject"]=='{{values["subject_name"]}}')
+	{
+		$('ul').append('<li>'+id_no+'</li>');
+		console.log('Received message');
+	}
+	});
+</script>
+
+<h1> Take and Store attendance to server</h1>
+<h2>Subject : {{values['subject_name']}}</h2>
+<br><br>
+
+<div id="id_no">
+<h1> ID_no</h1><ul>
+</ul>
+<button name = "submit" onclick = window.open("http://localhost:5000/store?year={{values['year']}}&branch={{values['branch']}}&sem={{values['sem']}}&subject={{values['subject_name']}}&date={{values['date']}}&time={{values['time']}}","_self")>send</button>
+</div>	
+</div>
+</body>
+</html>

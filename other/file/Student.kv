@@ -1,0 +1,23 @@
+#:kivy 1.0
+<gridlayout>:
+	id: stu
+	display:entry
+	rows: 2
+	padding: 10
+	spacing: 10
+		
+	BoxLayout:
+		TextInput:
+			id:entry
+			font_size: 32
+			entry.text="Press Button to give attendance"
+	BoxLayout:
+		spacing: 8
+		Button:
+			font_size:32
+			text:"Send_Credential"
+			on_press:std.send_credential()
+		Button:
+			font_size:32
+			text:"Set_credential"
+			on_press:std.set_credential("year-3","CP","Sem-6","C","51")							
